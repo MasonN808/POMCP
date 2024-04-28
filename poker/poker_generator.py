@@ -68,21 +68,21 @@ def move_to_action_index(move: Move) -> int:
     return base_idx + offset
 
 
-def get_action_mask(board):
-    """Generate a binary mask indicating which actions are legal."""
-    legal_moves = board.get_legal_moves(board.side_to_move)
-    mask = np.zeros(8 * 8 * 73, dtype=int)  # 73 possible actions for each square
+# def get_action_mask(board):
+#     """Generate a binary mask indicating which actions are legal."""
+#     legal_moves = board.get_legal_moves(board.side_to_move)
+#     mask = np.zeros(8 * 8 * 73, dtype=int)  # 73 possible actions for each square
 
-    for move_list in legal_moves.values():
-        for move in move_list:
-            action_idx = move_to_action_index(move)
-            try:
-                mask[action_idx] = 1
-            except Exception:
-                print(f"Invalid move: {move} to {action_idx}")
-                raise
+#     for move_list in legal_moves.values():
+#         for move in move_list:
+#             action_idx = move_to_action_index(move)
+#             try:
+#                 mask[action_idx] = 1
+#             except Exception:
+#                 print(f"Invalid move: {move} to {action_idx}")
+#                 raise
 
-    return mask
+#     return mask
 
 
 def action_index_to_move(board, action_idx: int) -> Optional[Move]:
