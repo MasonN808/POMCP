@@ -62,6 +62,76 @@ def generate_random_game_observation() -> str:
     game_state = f"{''.join(community_cards)}|{str(pot).zfill(5)}|{str(rounds).zfill(5)}|{''.join(player1_cards)}|{''.join("0000")}"
     return game_state
 
+def game_state_to_str(round_state: dict, hole_card_player_1: list, hole_card_player_2: list) -> str:
+    """
+    Outputs the same format from generate_random_game_observation() and generate_random_game_state()
+    Input is of the format:
+    { 'action_histories': { 'flop': [ { 'action': 'RAISE',
+                                    'add_amount': 40,
+                                    'amount': 40,
+                                    'paid': 40,
+                                    'uuid': 'bzggcmuaoypqacyvhaigyh'},
+                                  { 'action': 'RAISE',
+                                    'add_amount': 40,
+                                    'amount': 80,
+                                    'paid': 80,
+                                    'uuid': 'viqojmltetkdspzyvgljuy'},
+                                  { 'action': 'CALL',
+                                    'amount': 80,
+                                    'paid': 40,
+                                    'uuid': 'bzggcmuaoypqacyvhaigyh'}],
+                        'preflop': [ { 'action': 'SMALLBLIND',
+                                       'add_amount': 20,
+                                       'amount': 20,
+                                       'uuid': 'bzggcmuaoypqacyvhaigyh'},
+                                     { 'action': 'BIGBLIND',
+                                       'add_amount': 20,
+                                       'amount': 40,
+                                       'uuid': 'viqojmltetkdspzyvgljuy'},
+                                     { 'action': 'RAISE',
+                                       'add_amount': 40,
+                                       'amount': 80,
+                                       'paid': 60,
+                                       'uuid': 'bzggcmuaoypqacyvhaigyh'},
+                                     { 'action': 'CALL',
+                                       'amount': 80,
+                                       'paid': 40,
+                                       'uuid': 'viqojmltetkdspzyvgljuy'}],
+                        'river': [],
+                        'turn': [ { 'action': 'CALL',
+                                    'amount': 0,
+                                    'paid': 0,
+                                    'uuid': 'bzggcmuaoypqacyvhaigyh'},
+                                  { 'action': 'CALL',
+                                    'amount': 0,
+                                    'paid': 0,
+                                    'uuid': 'viqojmltetkdspzyvgljuy'}]},
+    'big_blind_pos': 1,
+    'community_card': ['C7', 'CQ', 'HT', 'CT', 'CJ'],
+    'dealer_btn': 1,
+    'next_player': 0,
+    'pot': {'main': {'amount': 320}, 'side': []},
+    'round_count': 110,
+    'seats': [ { 'name': 'Your agent',
+                'stack': 12620,
+                'state': 'participating',
+                'uuid': 'bzggcmuaoypqacyvhaigyh'},
+                { 'name': 'Your agent',
+                'stack': 7060,
+                'state': 'participating',
+                'uuid': 'viqojmltetkdspzyvgljuy'}],
+    'small_blind_amount': 20,
+    'small_blind_pos': 0,
+    'street': 'river'}
+    """
+    community_cards = round_state['community_card'].join("")
+    pot = str(round_state['pot']['main']['amount']).zfill(5)
+    rounds = str(round_state['round_count']).zfill(5)
+    hole_card_player_1 = hole_card_player_1.join("")
+    hole_card_player_2 = hole_card_player_2.join("")
+    game_state = f"{''.join(community_cards)}|{str(pot).zfill(5)}|{str(rounds).zfill(5)}|{''.join(hole_card_player_1)}|{''.join(hole_card_player_2)}"
+    
+    return game_state
 
 if __name__ == "__main__":
     print(generate_random_game_observation())
